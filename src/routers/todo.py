@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import SQLModel, Session, select, Field
-from db import engine, Tarefa
-
+from src.db import engine, Tarefa
 
 
 router = APIRouter(prefix="/tarefas", tags=["Arquivo de tarefas"])
