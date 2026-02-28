@@ -1,0 +1,41 @@
+# =========================
+# 1. Ambientes Virtuais
+# =========================
+venv/
+.venv/
+env/
+
+# =========================
+# 2. Segredos e Credenciais
+# =========================
+.env
+*.env
+
+# =========================
+# 3. Cache do Python
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# =========================
+# 4. Cache de Testes (Pytest)
+# =========================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =========================
+# 5. Bases de Dados Locais
+# =========================
+# (O Postgres está no Docker, mas caso o SQLite crie ficheiros acidentalmente)
+*.db
+*.sqlite3
+
+# =========================
+# 6. Ficheiros do Sistema Operativo/IDEs
+# =========================
+.vscode/
+.idea/
+.DS_Store
