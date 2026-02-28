@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers.todo import router as todo_router
+from src.routers.todo import router as todo_router
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.responses import PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
