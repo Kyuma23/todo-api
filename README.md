@@ -1,47 +1,82 @@
-# todo-api
+<div align="center">
+  <h1>⚙️ TaskManager API</h1>
+  <h3>API RESTful com FastAPI, PostgreSQL e Docker</h3>
+  
+  <p>
+    <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+    <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
+    <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+    <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+    <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="CI/CD" />
+  </p>
+</div>
 
-1. A Fundação (O Repositório)
+<br>
 
-[x]    Cria uma pasta nova chamada todo-api.
+## 🎯 Sobre o Projeto
+Uma API RESTful desenvolvida com foco em **Clean Architecture** e boas práticas de Engenharia de Software. O sistema permite a gestão completa de tarefas (To-Do) e demonstra a integração fluida entre validação rigorosa de dados, ORM moderno e conteinerização.
 
-[x]   Inicia o Git, cria o .gitignore e o ambiente virtual (venv).
+### ✨ Funcionalidades Principais
+- **CRUD Completo:** Criação, leitura, atualização e eliminação de tarefas.
+- **Validação Rigorosa:** Modelos validados automaticamente via Pydantic e SQLModel.
+- **Testes Unitários:** Suite de testes com `pytest`, utilizando *Dependency Override* para simular uma base de dados SQLite em memória durante os testes.
+- **Infraestrutura as Code:** Ambiente de desenvolvimento e produção 100% isolado através de `docker-compose`.
+- **CI/CD:** Pipeline automática no GitHub Actions que bloqueia código não funcional.
 
-[x]   Instala o fastapi, uvicorn, e o sqlmodel.
+---
 
-[x]   Dica de Ouro: Vais precisar de instalar a biblioteca psycopg2-binary para o Python conseguir falar com o Postgres!
+## 🚀 Como Executar (Via Docker)
 
-2. A Base de Dados (Docker)
+A forma mais fácil de correr a aplicação é utilizando o Docker. Não precisas de instalar o Python nem o Postgres na tua máquina.
 
-[x]   Cria um ficheiro docker-compose.yml na raiz do projeto.
+**1. Clona o repositório e entra na pasta:**
+```bash
+git clone [https://github.com/Kyuma23/todo-api](https://github.com/Kyuma23/todo-api)
+cd todo-api
+```
 
-[x]   Configura um serviço usando a imagem oficial do postgres (versão 15 ou 16).
+**2. Levanta a infraestrutura (API + Base de Dados):**
+```bash
+docker-compose up --build
+```
 
-[x]   Define as variáveis de ambiente (User, Password, DB Name) e expõe a porta 5432.
+**3. Acede à Documentação Automática:**
+Abre o teu browser e vai a: [http://localhost:8000/docs](http://localhost:8000/docs)
+*(O FastAPI gera uma interface Swagger UI automática para testares as rotas diretamente no browser).*
 
-[x]   Garante que o container levanta com docker compose up -d.
+---
 
-3. O Cérebro (A API)
+## 🧪 Como Correr os Testes Localmente
 
-[]   Cria a tua tabela SQLModel Tarefa (com id, titulo, descricao, e concluida como boolean).
+Se quiseres desenvolver localmente e correr a suite de testes:
 
-[]   Configura o ficheiro da base de dados (o create_engine agora vai usar um URL do tipo postgresql://user:password@localhost:5432/dbname).
+```bash
+# Ativar ambiente virtual e instalar dependências
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 
-[]   Cria as rotas CRUD completas (POST para criar, GET para listar, PUT/PATCH para marcar como concluída, DELETE para apagar).
+# Correr o Pytest garantindo que o Python reconhece a raiz do projeto
+PYTHONPATH=. pytest
+```
 
-4. A Garantia de Qualidade (Pytest)
+---
 
-[]   Configura o teu test_main.py.
+## 📂 Estrutura de Diretórios (Arquitetura)
 
-[]   Escreve no mínimo 2 testes (ex: criar uma tarefa e listar tarefas).
+```text
+├── src/
+│   ├── main.py          # Ponto de entrada (Uvicorn / Lifespan)
+│   ├── db.py            # Configuração do SQLModel e Motor Postgres
+│   ├── routers/
+│   │   └── todo.py      # Lógica de rotas (Endpoints)
+│   └── test_main.py     # Suite de testes unitários
+├── docker-compose.yml   # Orquestração de Containers
+├── Dockerfile           # Imagem da API Python
+└── requirements.txt     # Dependências do projeto
+```
 
-[]   Atenção: Lembra-te de fazer o override da base de dados nos testes, exatamente como fizeste no LegalEagle!
-
-5. O Lançamento (Deploy no Render)
-
-[]   Envia o teu código limpo para um novo repositório no GitHub.
-
-[]   Cria uma conta no Render.com (usa o teu GitHub para login).
-
-[]   Cria um "Web Service" ligado ao teu repositório e uma "PostgreSQL Database" gerida por eles (ambos no tier gratuito).
-
-[]   Coloca as Variáveis de Ambiente (URL da Base de Dados) nas definições do Render.
+<div align="center">
+  <br>
+  <i>Desenvolvido com ☕ e Python por Diogo © 2026</i>
+</div>
