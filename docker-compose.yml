@@ -12,7 +12,17 @@ services:
       - "5432:5432" 
     networks:
       - postgresnet
-
+  web:
+    build: . 
+    container_name: todo_api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://me:pass@postgres:5432/todo
+    depends_on:
+      - postgres 
+    networks:
+      - postgresnet
 volumes:
   postgresql_data:
     driver: local

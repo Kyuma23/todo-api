@@ -2,9 +2,9 @@ from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine
 import pytest
 from sqlalchemy.pool import StaticPool
-from db import Tarefa
-from main import app
-from routers.todo import get_session
+from src.db import Tarefa
+from src.main import app
+from src.routers.todo import get_session
 
 @pytest.fixture(name="session")
 def session_fixture():

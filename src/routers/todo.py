@@ -38,7 +38,7 @@ def getAllTarefas(session: Session = Depends(get_session)):
     return todas_as_tarefas
 
 @router.put("/{id}")
-def concluir_tareda(id : int, session: Session = Depends(get_session)):
+def concluir_tarefa(id : int, session: Session = Depends(get_session)):
     tarefa = session.get(Tarefa, id)
     if not tarefa:
         raise HTTPException(status_code=404, detail="Tarefa não encontrada na base de dados")

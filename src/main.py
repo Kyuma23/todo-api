@@ -1,10 +1,15 @@
 from fastapi import FastAPI
 from src.routers.todo import router as todo_router
-from starlette.exceptions import HTTPException as StarletteHTTPException
-from fastapi.responses import PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.exceptions import RequestValidationError 
+from contextlib import asynccontextmanager
+from src.db import init_db
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("A iniciar a Base de Dados...")
+    init_db() 
+    yield
+    print("A desligar a API...")
 
 app = FastAPI()
 
