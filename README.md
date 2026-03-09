@@ -18,12 +18,12 @@
 Uma aplicação Full-Stack desenvolvida com foco em **Clean Architecture** e boas práticas de Engenharia de Software. O sistema integra um backend robusto em Python para gestão de tarefas (To-Do) com uma interface moderna e reativa em Nuxt 3, demonstrando a integração fluida entre validação rigorosa de dados, ORM moderno, interfaces de utilizador dinâmicas e conteinerização.
 
 ### ✨ Funcionalidades Principais
-- [cite_start]**Interface Kanban Reativa:** Gestão visual de tarefas com colunas de estado (A Fazer / Concluído) e UX otimizada. 
-- [cite_start]**CRUD Completo:** Criação, leitura, atualização e eliminação de tarefas via API e UI. 
-- [cite_start]**Validação Rigorosa:** Modelos validados automaticamente via Pydantic e SQLModel no backend. 
-- [cite_start]**Testes Unitários:** Suite de testes com `pytest`, utilizando *Dependency Override* para simular uma base de dados SQLite em memória durante os testes. 
-- [cite_start]**Infraestrutura as Code:** Ambiente de desenvolvimento e produção 100% isolado através de `docker-compose`. 
-- [cite_start]**CI/CD:** Pipeline automática no GitHub Actions que bloqueia código não funcional. 
+- **Interface Kanban Reativa:** Gestão visual de tarefas com colunas de estado (A Fazer / Concluído) filtradas dinamicamente e UX otimizada.
+- **CRUD Completo:** Criação, leitura, atualização e eliminação de tarefas via API e UI.
+- **Validação Rigorosa:** Modelos de dados validados automaticamente via Pydantic e SQLModel no backend.
+- **Testes Unitários:** Suite de testes com `pytest`, utilizando *Dependency Override* para simular uma base de dados SQLite em memória durante os testes.
+- **Infraestrutura as Code:** Ambiente de desenvolvimento e produção 100% isolado através de `docker-compose`.
+- **CI/CD:** Pipeline automática no GitHub Actions que bloqueia código não funcional.
 
 ---
 
@@ -44,7 +44,7 @@ docker-compose up --build
 
 **3. Acede às interfaces:**
 - **Frontend (Web App):** [http://localhost:3000](http://localhost:3000)
-- **Documentação API (Swagger):** [http://localhost:8000/docs](http://localhost:8000/docs)
+- **Documentação API (Swagger UI):** [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ---
 
@@ -72,20 +72,21 @@ PYTHONPATH=. pytest
 ```text
 .
 ├── docker-compose.yml       # Orquestração de containers (Rede & Volumes)
-├── backend/                 # 🧠 Cérebro (FastAPI + SQLModel)
+├── backend/                 # 🧠 SERVIÇO: API (FastAPI + SQLModel)
 │   ├── main.py              # Ponto de entrada e Middleware CORS
-│   ├── db.py                # Configuração da DB e Modelos
+│   ├── db.py                # Configuração da DB e Engine
 │   ├── routers/
-│   │   └── todo.py          # Lógica de rotas (Endpoints)
+│   │   └── todo.py          # Endpoints da API (Lógica de rotas)
 │   └── test_main.py         # Suite de testes unitários
-├── frontend/                # 🎨 UI (Nuxt 3 + Tailwind)
-│   ├── app.vue              # Ponto de entrada do Vue
+├── frontend/                # 🎨 SERVIÇO: UI (Nuxt 3 + Tailwind)
+│   ├── app.vue              # Ponto de entrada do Vue (NuxtPage)
 │   ├── pages/
-│   │   └── index.vue        # Dashboard Kanban e lógica de consumo de API
+│   │   └── index.vue        # Dashboard Kanban e lógica de consumo
 │   ├── components/
-│   │   ├── KanbanHeader.vue # Gestão de inputs e criação
+│   │   ├── KanbanHeader.vue # Formulário de entrada expansível
 │   │   └── TaskCard.vue     # Componente visual da tarefa
-│   └── Dockerfile           # Build de produção (Nitro/Node)
+│   ├── nuxt.config.ts       # Configuração de módulos e runtime
+│   └── Dockerfile           # Build de produção (Node 20-Alpine)
 └── requirements.txt         # Dependências do projeto Python
 ```
 
