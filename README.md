@@ -1,8 +1,9 @@
 <div align="center">
-  <h1>⚙️ TaskManager API</h1>
-  <h3>API RESTful com FastAPI, PostgreSQL e Docker</h3>
+  <h1>⚙️ MyTodo Full-Stack Ecosystem</h1>
+  <h3>API RESTful (FastAPI) + Frontend Reativo (Nuxt 3)</h3>
   
   <p>
+    <img src="https://img.shields.io/badge/Nuxt_3-00DC82?style=for-the-badge&logo=nuxt.js&logoColor=white" alt="Nuxt 3" />
     <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
     <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
     <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
@@ -14,20 +15,21 @@
 <br>
 
 ## 🎯 Sobre o Projeto
-Uma API RESTful desenvolvida com foco em **Clean Architecture** e boas práticas de Engenharia de Software. O sistema permite a gestão completa de tarefas (To-Do) e demonstra a integração fluida entre validação rigorosa de dados, ORM moderno e conteinerização.
+Uma aplicação Full-Stack desenvolvida com foco em **Clean Architecture** e boas práticas de Engenharia de Software. O sistema integra um backend robusto em Python para gestão de tarefas (To-Do) com uma interface moderna e reativa em Nuxt 3, demonstrando a integração fluida entre validação rigorosa de dados, ORM moderno, interfaces de utilizador dinâmicas e conteinerização.
 
 ### ✨ Funcionalidades Principais
-- **CRUD Completo:** Criação, leitura, atualização e eliminação de tarefas.
-- **Validação Rigorosa:** Modelos validados automaticamente via Pydantic e SQLModel.
-- **Testes Unitários:** Suite de testes com `pytest`, utilizando *Dependency Override* para simular uma base de dados SQLite em memória durante os testes.
-- **Infraestrutura as Code:** Ambiente de desenvolvimento e produção 100% isolado através de `docker-compose`.
-- **CI/CD:** Pipeline automática no GitHub Actions que bloqueia código não funcional.
+- [cite_start]**Interface Kanban Reativa:** Gestão visual de tarefas com colunas de estado (A Fazer / Concluído) e UX otimizada. 
+- [cite_start]**CRUD Completo:** Criação, leitura, atualização e eliminação de tarefas via API e UI. 
+- [cite_start]**Validação Rigorosa:** Modelos validados automaticamente via Pydantic e SQLModel no backend. 
+- [cite_start]**Testes Unitários:** Suite de testes com `pytest`, utilizando *Dependency Override* para simular uma base de dados SQLite em memória durante os testes. 
+- [cite_start]**Infraestrutura as Code:** Ambiente de desenvolvimento e produção 100% isolado através de `docker-compose`. 
+- [cite_start]**CI/CD:** Pipeline automática no GitHub Actions que bloqueia código não funcional. 
 
 ---
 
 ## 🚀 Como Executar (Via Docker)
 
-A forma mais fácil de correr a aplicação é utilizando o Docker. Não precisas de instalar o Python nem o Postgres na tua máquina.
+A forma mais fácil de correr a aplicação completa é utilizando o Docker Compose.
 
 **1. Clona o repositório e entra na pasta:**
 ```bash
@@ -35,26 +37,29 @@ git clone [https://github.com/Kyuma23/todo-api](https://github.com/Kyuma23/todo-
 cd todo-api
 ```
 
-**2. Levanta a infraestrutura (API + Base de Dados):**
+**2. Levanta a infraestrutura completa (Frontend + Backend + DB):**
 ```bash
 docker-compose up --build
 ```
 
-**3. Acede à Documentação Automática:**
-Abre o teu browser e vai a: [http://localhost:8000/docs](http://localhost:8000/docs)
-*(O FastAPI gera uma interface Swagger UI automática para testares as rotas diretamente no browser).*
+**3. Acede às interfaces:**
+- **Frontend (Web App):** [http://localhost:3000](http://localhost:3000)
+- **Documentação API (Swagger):** [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ---
 
 ## 🧪 Como Correr os Testes Localmente
 
-Se quiseres desenvolver localmente e correr a suite de testes:
+Se quiseres desenvolver localmente no backend e correr a suite de testes:
 
 ```bash
+# Entrar na pasta do backend
+cd backend
+
 # Ativar ambiente virtual e instalar dependências
 python -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 
 # Correr o Pytest garantindo que o Python reconhece a raiz do projeto
 PYTHONPATH=. pytest
@@ -65,18 +70,26 @@ PYTHONPATH=. pytest
 ## 📂 Estrutura de Diretórios (Arquitetura)
 
 ```text
-├── src/
-│   ├── main.py          # Ponto de entrada (Uvicorn / Lifespan)
-│   ├── db.py            # Configuração do SQLModel e Motor Postgres
+.
+├── docker-compose.yml       # Orquestração de containers (Rede & Volumes)
+├── backend/                 # 🧠 Cérebro (FastAPI + SQLModel)
+│   ├── main.py              # Ponto de entrada e Middleware CORS
+│   ├── db.py                # Configuração da DB e Modelos
 │   ├── routers/
-│   │   └── todo.py      # Lógica de rotas (Endpoints)
-│   └── test_main.py     # Suite de testes unitários
-├── docker-compose.yml   # Orquestração de Containers
-├── Dockerfile           # Imagem da API Python
-└── requirements.txt     # Dependências do projeto
+│   │   └── todo.py          # Lógica de rotas (Endpoints)
+│   └── test_main.py         # Suite de testes unitários
+├── frontend/                # 🎨 UI (Nuxt 3 + Tailwind)
+│   ├── app.vue              # Ponto de entrada do Vue
+│   ├── pages/
+│   │   └── index.vue        # Dashboard Kanban e lógica de consumo de API
+│   ├── components/
+│   │   ├── KanbanHeader.vue # Gestão de inputs e criação
+│   │   └── TaskCard.vue     # Componente visual da tarefa
+│   └── Dockerfile           # Build de produção (Nitro/Node)
+└── requirements.txt         # Dependências do projeto Python
 ```
 
 <div align="center">
   <br>
-  <i>Desenvolvido com ☕ e Python por Diogo © 2026</i>
+  <i>Desenvolvido com ☕ por Diogo © 2026</i>
 </div>

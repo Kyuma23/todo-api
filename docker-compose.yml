@@ -13,16 +13,39 @@ services:
     networks:
       - postgresnet
   web:
-    build: . 
-    container_name: todo_api
+      build: . 
+      container_name: todo_api
+      ports:
+        - "8000:8000"
+      environment:
+        - DATABASE_URL=postgresql://me:pass@postgres:5432/todo
+      volumes:
+        - .:/app
+      command: uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
+      depends_on:
+        - postgres 
+      networks:
+        - postgresnet
+
+  frontend:
+    build: ./frontend 
+    container_name: nuxt_frontend
     ports:
-      - "8000:8000"
+      - "3000:3000" 
     environment:
-      - DATABASE_URL=postgresql://me:pass@postgres:5432/todo
+      - NUXT_PUBLIC_API_BASE=http://localhost:8000
+      - HOST=0.0.0.0 # Obriga o Nuxt a ficar visível fora do contentor
+      - WATCHPACK_POLLING=true # Ajuda o Nuxt a detetar quando guardas um ficheiro
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules # Truque para não apagar os módulos do Docker
+    # 2. MODO DEV: Em vez de "npm run build", corremos o comando de desenvolvimento
+    command: npm run dev
     depends_on:
-      - postgres 
+      - web
     networks:
       - postgresnet
+
 volumes:
   postgresql_data:
     driver: local
